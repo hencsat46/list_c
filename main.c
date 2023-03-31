@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include "consts.h"
+#include <string.h>
 
 typedef union {
     int digit;
@@ -11,22 +12,22 @@ typedef union {
 } var;
 
 void show_string(uint8_t* string) {
-    for (; *string; ++string) {
-        printf("%c", *string);
+    for (uint8_t *ptr = string; *ptr; ++ptr) {
+        printf("%c", *ptr);
     }
     printf("\n");
 }
 
 
 
-void format_double(double num) {
+uint8_t* format_double(double num) {
     
     uint8_t *old_str = (uint8_t *)malloc(64);
     
     sprintf(old_str, "%f", num);
-    printf("%s\n", old_str);
+    
     bool dot_state = FALSE, find_zero = FALSE;
-    uint8_t *ptr_null;
+    uint8_t *ptr_null = NULL;
     
     for (uint8_t *ptr = old_str; *ptr; ++ptr) {
         if (*ptr == '0') {
@@ -36,25 +37,24 @@ void format_double(double num) {
             }
         } else {
             find_zero = FALSE;
-        }
-        
-        
+        }    
     }
-    printf("%d\n", find_zero);
-    uint8_t *new_str;
+    
+    uint8_t *new_str = NULL;
     if (find_zero) {
         
+        size_t size = (ptr_null - old_str + 1);
+        new_str = (uint8_t *)malloc(size);
         
-        new_str = (uint8_t *)malloc((size_t)(ptr_null - old_str));
         for (uint8_t *ptr = old_str, *new_ptr = new_str; ptr < ptr_null; ++ptr, ++new_ptr) {
             *new_ptr = *ptr;
         }
-        show_string(new_str);
+        *(new_str + size - 1) = '\0';
+        
     }
-    free(new_str);
+
     free(old_str);
-    
-    
+    return new_str;    
 }
 
 void show_args(uint8_t* types, ...) {
@@ -86,7 +86,8 @@ void show_args(uint8_t* types, ...) {
 void main() {
     //show_args("dddsr", 1, 2, 3, "dick", 1.2);
     
-    format_double(144.11);
-    //printf("%.2f\n", 0.2 + 0.3);
+    uint8_t *ptr = format_double(133.14);
+    printf("%s\n", ptr);
+    free(ptr);
 
 }
