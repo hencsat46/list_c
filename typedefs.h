@@ -12,9 +12,17 @@ typedef union {
     double real;
 } var;
 
+typedef enum types {
+    INTEGER,
+    REAL,
+    STRING,
+} types;
+
 typedef struct List {
-    var elem;
+    var value;
     struct List *next;
+    types value_type;
 } List;
+
 
 #endif

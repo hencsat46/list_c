@@ -5,6 +5,8 @@
 char *format_double(double num);
 void show_args(char* types, ...);
 void show_string(char* string);
-void new_list(List *list, char *format, ...);
-
+List * new_list(char *format, ...);
+void free_list(List *list);
+void push_list(List *list, char *format, ...);
+void print_list(List *list);
 #endif // SUPPORT_FUNC_H

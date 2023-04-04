@@ -3,8 +3,9 @@
 #include <stdio.h>  
 
 void main() {
-    show_args("dddsr", 1, 2, 3, "dick", 1.2);
-    printf("ochko");
-    return;
+    
+
+    List *list = new_list("ddr", 1, 2, 4.3);
+    //print_list(list);
 
 }
