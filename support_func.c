@@ -54,10 +54,12 @@ void push_list(List *list, char *format, ...) {
     for (; ptr->next != NULL; ++ptr) {
         ptr = ptr->next;
     }
-    printf("%s\n", format);
+    //printf("%s\n", format);
     for (char *form_ptr = format; *form_ptr; ++form_ptr) {
         List *new_node = (List *)malloc(sizeof(List));
-        printf("hello %c\n", *form_ptr);
+        //printf("hello %c\n", *form_ptr);
+        
+        
         switch(*form_ptr) {
         case 'd':
             new_node->value_type = INTEGER;
@@ -83,7 +85,8 @@ void push_list(List *list, char *format, ...) {
         default:
             free(new_node);
             
-    }
+        }
+    
     }
     
 
@@ -139,18 +142,18 @@ List *new_list(char *format, ...) {
         
         switch (*ptr) {
             case 'd':
-                variable.digit = va_arg(factor, int);
-                push_list(node_ptr, "d", variable);
+                
+                push_list(node_ptr, "d", va_arg(factor, int));
                 node_ptr = node_ptr->next;
                 break;
             case 's':
-                variable.string = va_arg(factor, char*);
-                push_list(node_ptr, "s", variable);
+                
+                push_list(node_ptr, "s", va_arg(factor, char*));
                 node_ptr = node_ptr->next;
                 break;
             case 'r':
-                variable.real = va_arg(factor, double);
-                push_list(node_ptr, "r  ", variable);
+                
+                push_list(node_ptr, "r", va_arg(factor, double));
                 node_ptr = node_ptr->next;
                 break;
         }
@@ -164,7 +167,7 @@ List *new_list(char *format, ...) {
 
 
 void print_list(List *list) {
-    for (List *ptr = list; ptr->next != NULL; ++ptr) {
+    for (List *ptr = list->next; ptr != NULL; ptr = ptr->next) {
         
         switch(ptr->value_type) {
             case INTEGER:
@@ -182,14 +185,18 @@ void print_list(List *list) {
     }
 }
 
-void free_list(List *list) {
-    List *ptr = list, *prev_ptr;
 
-    for (; ptr->next != NULL; ++ptr) {
+
+void free_list(List *list) {
+    List *ptr = list;
+    List *prev_ptr;
+
+    while (ptr->next != NULL) {
         prev_ptr = ptr;
         ptr = ptr->next;
         free(prev_ptr);
     }
+    
 
     free(ptr);
 
