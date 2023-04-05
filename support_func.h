@@ -9,4 +9,5 @@ List * new_list(char *format, ...);
 void free_list(List *list);
 void push_list(List *list, char *format, ...);
 void print_list(List *list);
+void pop_elem(List *list);
 #endif // SUPPORT_FUNC_H

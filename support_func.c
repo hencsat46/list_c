@@ -84,7 +84,8 @@ void push_list(List *list, char *format, ...) {
             break;
         default:
             free(new_node);
-            
+            printf("Type error\n");
+            continue;
         }
     
     }
@@ -142,20 +143,20 @@ List *new_list(char *format, ...) {
         
         switch (*ptr) {
             case 'd':
-                
                 push_list(node_ptr, "d", va_arg(factor, int));
                 node_ptr = node_ptr->next;
                 break;
             case 's':
-                
                 push_list(node_ptr, "s", va_arg(factor, char*));
                 node_ptr = node_ptr->next;
                 break;
             case 'r':
-                
                 push_list(node_ptr, "r", va_arg(factor, double));
                 node_ptr = node_ptr->next;
                 break;
+            default:
+                printf("Type error\n");
+                continue;
         }
         
         
@@ -179,10 +180,11 @@ void print_list(List *list) {
                 free(num);
                 break;
             case STRING:
-                printf("%s", ptr->value.string);
+                printf("%s ", ptr->value.string);
                 break;
         }
     }
+    printf("\n");
 }
 
 
@@ -200,4 +202,11 @@ void free_list(List *list) {
 
     free(ptr);
 
+}
+
+void pop_elem(List *list) {
+    List *ptr = list, *prev_ptr;
+    while (ptr->next->next != NULL) ptr = ptr->next;
+    free(ptr->next);
+    ptr->next = NULL;
 }
