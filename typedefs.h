@@ -19,5 +19,9 @@ typedef struct List {
     types value_type;
 } List;
 
+typedef enum bool {
+    TRUE = 1,
+    FALSE = 0,
+} bool;
 
 #endif

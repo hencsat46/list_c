@@ -9,4 +9,7 @@ void free_list(List *list);
 void push_list(List *list, char *format, ...);
 void pop_elem(List *list);
 void show_string(char *string);
+char *format_double(double num);
+void print_list(List *list);
+
 #endif // SUPPORT_FUNC_H
