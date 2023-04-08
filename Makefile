@@ -1,4 +1,8 @@
+all: main lib
 
+main: main.c list.h
+	gcc main.c -L./libs -lList -o main 2>/dev/null
+	
 
-main : typedefs.h main.c support_func.c support_func.h
-	gcc main.c typedefs.h support_func.c support_func.h -o main
+libList: list.c list.h format_double.c format_double.h
+	gcc -shared list.c -fPIC -o ./libs/libList.so
