@@ -191,8 +191,37 @@ int list_length(List *list) {
     return length;
 }
 
-// void insert_elem(List *list, int index, char *format, ...) {
-//     for (List *ptr = list; *ptr; ptr = ptr->next) {
-        
-//     }
-// }
+void insert_elem(List *list, int index, char format, var elem) {
+   
+    
+    if (index > list_length(list)) {
+        printf("Error\n");
+        return;
+    }
+    List *ptr = list;
+    for (int i = 0; i < index; ++i) ptr = ptr->next;
+
+    List *new_elem = (List *)malloc(sizeof(List));
+    new_elem->value = elem;
+
+    switch(format){
+        case 'd':
+            new_elem->value_type = INTEGER;
+            break;
+        case 'f':
+            new_elem->value_type = REAL;
+            break;
+        case 's':
+            new_elem->value_type = STRING;
+            break;
+        default:
+            printf("Type error\n");
+            free(new_elem);
+            return;
+    }
+
+    new_elem->next = ptr->next;
+    ptr->next = new_elem;
+    return;
+    
+}
