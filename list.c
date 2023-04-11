@@ -182,3 +182,17 @@ void pop_elem(List *list) {
     free(ptr->next);
     ptr->next = NULL;
 }
+
+int list_length(List *list) {
+    int length = 0;
+    for (List *ptr = list; ptr->next != NULL; ptr = ptr->next) {
+        ++length;
+    }
+    return length;
+}
+
+// void insert_elem(List *list, int index, char *format, ...) {
+//     for (List *ptr = list; *ptr; ptr = ptr->next) {
+        
+//     }
+// }

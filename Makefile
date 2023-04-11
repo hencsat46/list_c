@@ -1,7 +1,7 @@
-all: main lib
+all: main libList
 
 main: main.c list.h
-	gcc main.c -L./libs -lList -o main 2>/dev/null
+	gcc main.c -L./libs -lList -o main
 	
 
 libList: list.c list.h
