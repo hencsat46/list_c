@@ -199,7 +199,9 @@ void insert_elem(List *list, int index, char format, var elem) {
         return;
     }
     List *ptr = list;
-    for (int i = 0; i < index; ++i) ptr = ptr->next;
+    for (int i = 0; i < index; ++i) {
+        ptr = ptr->next;
+    }
 
     List *new_elem = (List *)malloc(sizeof(List));
     new_elem->value = elem;
@@ -222,6 +224,30 @@ void insert_elem(List *list, int index, char format, var elem) {
 
     new_elem->next = ptr->next;
     ptr->next = new_elem;
+    return;
+    
+}
+
+void delete_elem(List *list, int index) {
+
+    if (index > list_length(list) - 1) {
+        printf("Error\n");
+        return;
+    }
+
+    List *ptr = list->next, *prev_ptr = list;
+    for (int i = 0; i < index; ++i) {
+        prev_ptr = ptr;
+        ptr = ptr->next;
+    }
+
+    if (ptr->next == NULL) {
+        prev_ptr->next = NULL;
+        free(ptr);
+        return;
+    }
+    prev_ptr->next = ptr->next;
+    free(ptr);
     return;
     
 }

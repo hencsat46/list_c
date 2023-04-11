@@ -13,5 +13,5 @@ char *format_double(double num);
 void print_list(List *list);
 int list_length(List *list);
 void insert_elem(List *list, int index, char format, var elem);
-
+void delete_elem(List *list, int index);
 #endif // SUPPORT_FUNC_H
